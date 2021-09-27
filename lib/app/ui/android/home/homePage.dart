@@ -86,6 +86,7 @@ class HomePage extends StatelessWidget {
                 'Projetor',
                 '15:30 - 16:00',
                 'R\$80',
+                '17/Setembro',
                 height,
                 width),
             SizedBox(height: height * 3),
@@ -100,6 +101,7 @@ class HomePage extends StatelessWidget {
                 'Ar-Condicionador',
                 '14:00 - 17:00',
                 'R\$100',
+                '25/Novembro',
                 height,
                 width),
             SizedBox(height: height * 3),
@@ -114,6 +116,7 @@ class HomePage extends StatelessWidget {
                 'Ar-Condicionador',
                 '8:00 - 9:00',
                 'R\$90',
+                '10/novembro',
                 height,
                 width),
             SizedBox(height: height * 3),
@@ -135,18 +138,19 @@ Widget roomCard(
   String detail3,
   String time,
   String money,
+  String day,
   double height,
   double width,
 ) {
   return InkWell(
-    onTap: () => Get.toNamed('/room_details',
-     arguments: {
-     'image': image,
-     'title': title,
-     'local' : local,
-     'time' : time,
-     'money' : money,
-     }),
+    onTap: () => Get.toNamed('/room_details', arguments: {
+      'image': image,
+      'title': title,
+      'local': local,
+      'time': time,
+      'money': money,
+      'day': day,
+    }),
     child: Container(
       margin: EdgeInsets.symmetric(horizontal: width * 7),
       height: height * 35,
@@ -167,11 +171,12 @@ Widget roomCard(
           Container(
             height: height * 20,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(7), topRight: Radius.circular(7)),
-                image: DecorationImage(
-                    image: AssetImage('assets/images/$image.jpg'),
-                    fit: BoxFit.cover)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(7), topRight: Radius.circular(7)),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/$image.jpg'),
+                  fit: BoxFit.cover),
+            ),
           ),
           SizedBox(height: height * 1),
           Row(
@@ -207,7 +212,8 @@ Widget roomCard(
                         color: Colors.white,
                       ),
                     ),
-                  ))
+                  ),
+                  ),
             ],
           ),
           SizedBox(height: height * 2),
