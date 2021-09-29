@@ -1,9 +1,28 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class Tech {
+  String label;
+  Color color;
+  bool isSelected;
+  Tech(this.label, this.color, this.isSelected);
+}
+
+class _HomePageState extends State<HomePage> {
+  late String valueChoose = 'Defina a quantidade de pessoas';
+
+  bool selected = false;
+  List<Tech> _chipsList = [
+    Tech("Wi-fi", Colors.grey, false),
+    Tech("Projetor", Colors.grey, false),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 100;
@@ -34,7 +53,7 @@ class HomePage extends StatelessWidget {
             //container que tera o texto "encontre sua sala de reuniao e o botao de filtro"
             Container(
               margin: EdgeInsets.symmetric(horizontal: width * 7),
-              height: height * 10,
+              height: height * 12,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -46,30 +65,48 @@ class HomePage extends StatelessWidget {
                 10.0, // horizontal, move right 10
                 10.0, // vertical, move down 10
               ), */
-                  )
+                  ),
                 ],
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
-              child: Row(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: width * 2),
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Encontre  sua sala de reunião',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                  DropdownButton<String>(
+                    icon: const Icon(
+                      Icons.filter_list,
                     ),
+                    value: valueChoose,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        valueChoose = newValue!;
+                      });
+                    },
+                    items: <String>[
+                      'Defina a quantidade de pessoas',
+                      '2 - 4 Pessoas',
+                      '4 - 8 Pessoas',
+                      '8 - 12 Pessoas',
+                      '12 - 20 Pessoas',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  SizedBox(width: width * 17),
-                  Container(
-                    child: IconButton(
-                      icon: const Icon(Icons.filter_list),
-                      onPressed: () {},
-                    ),
-                  )
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: width * 1),
+                        child: Wrap(
+                          spacing: 10,
+                          direction: Axis.horizontal,
+                          children: techChips(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -89,6 +126,7 @@ class HomePage extends StatelessWidget {
                 '17/Setembro',
                 height,
                 width),
+
             SizedBox(height: height * 3),
 
             roomCard(
@@ -104,6 +142,7 @@ class HomePage extends StatelessWidget {
                 '25/Novembro',
                 height,
                 width),
+
             SizedBox(height: height * 3),
 
             roomCard(
@@ -124,6 +163,34 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> techChips() {
+    List<Widget> chips = [];
+    for (int i = 0; i < _chipsList.length; i++) {
+      Widget item = Container(
+        height: 26,
+        child: FilterChip(
+          checkmarkColor: Colors.white,
+          selectedColor: Color(0xff492e8d),
+          visualDensity: VisualDensity.compact,
+          label: Text(
+            _chipsList[i].label,
+            textAlign: TextAlign.center,
+          ),
+          labelStyle: TextStyle(color: Colors.white, fontSize: 11),
+          backgroundColor: _chipsList[i].color,
+          selected: _chipsList[i].isSelected,
+          onSelected: (bool value) {
+            setState(() {
+              _chipsList[i].isSelected = value;
+            });
+          },
+        ),
+      );
+      chips.add(item);
+    }
+    return chips;
   }
 }
 
@@ -195,25 +262,25 @@ Widget roomCard(
               ),
               SizedBox(width: width * 20),
               Container(
-                  height: height * 3,
-                  width: width * 20,
-                  decoration: BoxDecoration(
-                      color: Color(0xff492e8d),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10))),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      busula,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: Colors.white,
-                      ),
+                height: height * 3,
+                width: width * 20,
+                decoration: BoxDecoration(
+                    color: Color(0xff492e8d),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10))),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    busula,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11,
+                      color: Colors.white,
                     ),
                   ),
-                  ),
+                ),
+              ),
             ],
           ),
           SizedBox(height: height * 2),

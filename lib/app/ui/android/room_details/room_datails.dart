@@ -293,7 +293,7 @@ class RoomDetails extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff492e8d),
-        child: Icon(Icons.add),
+        child: Icon(Icons.arrow_left),
         onPressed: () {
           Get.offNamed('/');
         },

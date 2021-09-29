@@ -133,17 +133,23 @@ class _DetailsReservesState extends State<DetailsReserves> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
 
-                          SizedBox(height: height * 0.2),
-                          
-                          Container(
-                            child: Text('Click aqui para fazer seu check-in',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                          SizedBox(height: height * 1),
+                
 
                          
-                          checkIn(height, width),
-                          
+                          SizedBox(height: height * 1), 
+
+                          Row(
+                            children: [
+
+                              checkIn('Check-in', 'Deseja confirma o Check-in?', height, width),
+
+                              SizedBox(width: width * 4),
+
+                              checkIn('Check-out', 'Deseja confirma o Check-out?', height, width),
+
+
+
+                            ],),
 
                           /////////////////////////////
 
@@ -171,7 +177,6 @@ class _DetailsReservesState extends State<DetailsReserves> {
                             ),
                           ), */
                         ],
-                        
                       ),
                     ),
                   ),
@@ -191,41 +196,37 @@ class _DetailsReservesState extends State<DetailsReserves> {
     );
   }
 
-  Widget checkIn(double height, double width) {
+  Widget checkIn(String name, String title, double height, double width) {
     return InkWell(
       onTap: () => showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('Entre com dados de sua reserva'),
+          title: Text(title),
           actions: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: height * 4),
-                  child: Container(
-                    height: height * 6,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Código da reserva",
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      child: ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text(
+                            'Não',
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ),
-                  ),
+                    Container(
+                      child: ElevatedButton(
+                          onPressed:  () => Navigator.of(context).pop(),
+                          child: Text(
+                            'Sim',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                  ],
                 ),
-                Container(
-                  child: ElevatedButton(
-                      onPressed: null,
-                      child: Text(
-                        'Finalizar reserva',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                )
               ],
             ),
           ],
@@ -240,7 +241,7 @@ class _DetailsReservesState extends State<DetailsReserves> {
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            'Check-in',
+            name,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 11,
