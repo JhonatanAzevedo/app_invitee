@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailsReserves extends StatefulWidget {
   @override
@@ -28,7 +29,8 @@ class _DetailsReservesState extends State<DetailsReserves> {
         centerTitle: true,
         backgroundColor: Color(0xff492e8d),
         title: Text(
-          'Invitee',
+          'Invitee', style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
           IconButton(

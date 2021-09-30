@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RoomDetails extends StatelessWidget {
   const RoomDetails({Key? key}) : super(key: key);
@@ -23,7 +24,8 @@ class RoomDetails extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Color(0xff492e8d),
         title: Text(
-          'Invitee',
+          'Invitee',  style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
           IconButton(
