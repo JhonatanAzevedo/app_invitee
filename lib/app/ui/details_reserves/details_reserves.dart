@@ -29,8 +29,8 @@ class _DetailsReservesState extends State<DetailsReserves> {
         centerTitle: true,
         backgroundColor: Color(0xff492e8d),
         title: Text(
-          'Invitee', style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold),
+          'Invitee',
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
           IconButton(
@@ -134,50 +134,24 @@ class _DetailsReservesState extends State<DetailsReserves> {
                             child: Text('$money',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
-
-                
-
-                         
-                          SizedBox(height: height * 1), 
-
+                          SizedBox(height: height * 1),
                           Row(
                             children: [
-
-                              checkIn('Check-in', 'Deseja confirma o Check-in?', height, width),
-
+                              checkIn(
+                                  'Check-in',
+                                  'Deseja confirma o Check-in?',
+                                  'Check-in realizado com sucesso',
+                                  height,
+                                  width),
                               SizedBox(width: width * 4),
-
-                              checkIn('Check-out', 'Deseja confirma o Check-out?', height, width),
-
-
-
-                            ],),
-
-                          /////////////////////////////
-
-                          /* Container(
-                            width: width * 5,
-                            height: height * 3,
-                            child: Checkbox(
-                              activeColor: Color(0xff492e8d),
-                              value: checkvelue,
-                              onChanged: (bool? value) {
-                                if (value == true) {
-                                   showDialog(
-                                    context: context,
-                                   builder: (ctx)=> AlertDialog(
-                                     title: Text('slfllfa'),
-                                   ));
-                                  
-                                }
-                                setState(() {
-                                  checkvelue = value!;
-                                });
-
-                               
-                              },
-                            ),
-                          ), */
+                              checkIn(
+                                  'Check-out',
+                                  'Deseja confirma o Check-out?',
+                                  'Check-out realizado com sucesso',
+                                  height,
+                                  width),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -198,7 +172,8 @@ class _DetailsReservesState extends State<DetailsReserves> {
     );
   }
 
-  Widget checkIn(String name, String title, double height, double width) {
+  Widget checkIn(String name, String title, String snackbarTitle, double height,
+      double width) {
     return InkWell(
       onTap: () => showDialog(
         context: context,
@@ -221,11 +196,17 @@ class _DetailsReservesState extends State<DetailsReserves> {
                     ),
                     Container(
                       child: ElevatedButton(
-                          onPressed:  () => Navigator.of(context).pop(),
-                          child: Text(
-                            'Sim',
-                            style: TextStyle(color: Colors.white),
-                          )),
+                        onPressed: () {
+                          Get.offNamed('/');
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(snackbarTitle)));
+                        },
+                        child: Text(
+                          'Sim',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -203,7 +203,7 @@ class RoomDetails extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
                                 image: AssetImage('assets/images/reuniao.png'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.fill),
                           ),
                         ),
                       ),
@@ -261,7 +261,7 @@ class RoomDetails extends StatelessWidget {
                                       ],
                                     ),
                                   ],
-                                )),
+                                ),),
                         child: Container(
                           alignment: Alignment.centerLeft,
                           height: height * 13,
@@ -281,7 +281,7 @@ class RoomDetails extends StatelessWidget {
                             image: DecorationImage(
                                 image: AssetImage(
                                     'assets/images/estacao_trabalho.png'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.fill),
                           ),
                         ),
                       ),
@@ -295,11 +295,17 @@ class RoomDetails extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff492e8d),
-        child: Icon(Icons.arrow_left),
+        child: Icon(Icons.arrow_back),
         onPressed: () {
           Get.offNamed('/');
         },
       ),
     );
   }
+
+
+
+
 }
+
+
