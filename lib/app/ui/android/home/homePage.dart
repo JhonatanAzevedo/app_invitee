@@ -1,31 +1,24 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invitee_application/app/design_system/widgets/room_cards_widget/room_card_widget.dart';
+import 'package:invitee_application/app/ui/android/home/widgets/room_card_widget.dart';
+
+import 'widgets/dialog_filter_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class Tech {
-  final String? label;
-  final Color? color;
-  bool? isSelected;
-  Tech(this.label, this.color, this.isSelected);
-}
+
 
 class _HomePageState extends State<HomePage> {
   List<RoomCard>? data;
 
-  late String valueChoose = 'Defina a quantidade de pessoas';
   String? newValue;
   bool selected = false;
 
-  List<Tech>? _chipsList = [
-    Tech("Wi-fi", Colors.grey, false),
-    Tech("Projetor", Colors.grey, false),
-  ];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -59,72 +52,40 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: height * 1.8),
 
           //container que tera o texto "encontre sua sala de reuniao e o botao de filtro"
-          Expanded(
-            flex: 1,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: width * 7),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 30.0, // tem o efeito de suavizar a sombra
-                    spreadRadius: 0.0, // tem o efeito de estender a sombra
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              child: Column(
-                children: [
-                  DropdownButton<String>(
-                    icon: const Icon(
-                      Icons.filter_list,
-                    ),
-                    value: valueChoose,
-                    onChanged: (newValue) {
-                      setState(() {
-                        valueChoose = newValue!;
-                      });
-                    },
-                    items: <String>[
-                      'Defina a quantidade de pessoas',
-                      '2 - 4 Pessoas',
-                      '4 - 8 Pessoas',
-                      '8 - 12 Pessoas',
-                      '12 - 20 Pessoas',
-                    ].map<DropdownMenuItem<String>>((value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: width * 7),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 30.0, // tem o efeito de suavizar a sombra
+                  spreadRadius: 0.0, // tem o efeito de estender a sombra
+                ),
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+            child: InkWell(
+               onTap: (){
 
-                  // Chips do Filtro
-                  Row(
+              showDialog(
+              context: context,
+               builder: (ctx) => DialogFilterWidget(),
+               );
+            },
+              child: Container(
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(vertical: height * 2),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: width * 1),
-                        child: Wrap(
-                          spacing: 10,
-                          direction: Axis.horizontal,
-                          children: techChips(),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Aplicar filtro',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        style: TextButton.styleFrom(primary: Colors.purple),
-                      ),
+                        
+                      Text('Encontre sua sala de reunião'),
+                      Icon(Icons.filter_list),
+                        
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -149,43 +110,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> techChips() {
-    List<Widget> chips = [];
-    for (int i = 0; i < _chipsList!.length; i++) {
-      Widget item = Container(
-        height: 26,
-        child: FilterChip(
-          checkmarkColor: Colors.white,
-          selectedColor: Color(0xff492e8d),
-          visualDensity: VisualDensity.compact,
-          label: Text(
-            _chipsList![i].label!,
-            textAlign: TextAlign.center,
-          ),
-          labelStyle: TextStyle(color: Colors.white, fontSize: 11),
-          backgroundColor: _chipsList![i].color,
-          selected: _chipsList![i].isSelected!,
-          onSelected: (value) {
-            setState(() {
-              _chipsList![i].isSelected = value;
-            });
-          },
-        ),
-      );
-      chips.add(item);
-    }
-    return chips;
-  }
+ 
 
   changeData() {
     data = [
       RoomCard(
           image: 'salaA1',
-          title: 'Sala de Reunião A3',
+          title: 'Sala de Reunião A1',
           local: 'Av.Paulista 500 - São Paulo',
           busula: 'Leste',
-          amountPeople: '8-12 Pessoas',
-          time: '8:00 - 9:00',
+          amountPeople: '2-4 Pessoas',
+          time: '10:00 - 12:00',
           money: 'R\$90',
           day: '10/novembro',
           details: [
@@ -195,13 +130,13 @@ class _HomePageState extends State<HomePage> {
           ]),
       RoomCard(
           image: 'salaA2',
-          title: 'Sala de Reunião A3',
+          title: 'Sala de Reunião A2',
           local: 'Av.Paulista 500 - São Paulo',
           busula: 'Leste',
           amountPeople: '8-12 Pessoas',
-          time: '8:00 - 9:00',
-          money: 'R\$90',
-          day: '10/novembro',
+          time: '13:00 - 14:30',
+          money: 'R\$190',
+          day: '06/outubro',
           details: [
             'Wi-fi',
             'Projetor',
@@ -212,10 +147,10 @@ class _HomePageState extends State<HomePage> {
           title: 'Sala de Reunião A3',
           local: 'Av.Paulista 500 - São Paulo',
           busula: 'Leste',
-          amountPeople: '8-12 Pessoas',
+          amountPeople: '12-20 Pessoas',
           time: '8:00 - 9:00',
-          money: 'R\$90',
-          day: '10/novembro',
+          money: 'R\$110',
+          day: '18/novembro',
           details: [
             'Wi-fi',
             'Projetor',
