@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:invitee_application/app/controller/controller_dialog.dart';
+
+import 'adaptive_text_size.dart';
 
 class DialogFilterWidget extends StatefulWidget {
   @override
@@ -29,114 +33,115 @@ class _DialogFilterWidgetState extends State<DialogFilterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final dialogController = Get.put(ControllerDialog());
+
     final height = MediaQuery.of(context).size.height / 100;
     final width = MediaQuery.of(context).size.width / 100;
 
     return AlertDialog(
       title: Container(
         alignment: Alignment.topCenter,
-        /* color: Colors.amber, */
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('Carecterísticas da sala'),
-
-            SizedBox(height: height * 1,),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+            SizedBox(
+              height: height * 1,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Wrap(
                 spacing: 10,
-                children: techChipsCharacteristics(),
+                children: techChipsCharacteristics(dialogController),
               )
             ]),
-
-            SizedBox(height: height * 3,),
-
+            SizedBox(
+              height: height * 3,
+            ),
             Text('Quantidade de Pessoas'),
-            
-            SizedBox(height: height * 1,),
-            
+            SizedBox(
+              height: height * 1,
+            ),
             Container(
               width: width * 35,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  runSpacing: 10,
-                  spacing: 10,
-                  children: techChipsPeople(),
-                )
-              ]),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      runSpacing: 10,
+                      spacing: 10,
+                      children: techChipsPeople(dialogController),
+                    )
+                  ]),
             ),
-            
-            TextButton(onPressed:(){} , 
-            child: Text('Aplicar'),
-            style: TextButton.styleFrom(
-              primary: Colors.purple,
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Aplicar'),
+              style: TextButton.styleFrom(
+                primary: Colors.purple,
+              ),
             ),
-
-            ),
-
           ],
         ),
       ),
     );
   }
 
-  List<Widget> techChipsCharacteristics() {
+  List<Widget> techChipsCharacteristics(ControllerDialog dialogController) {
     List<Widget> chips = [];
     for (int i = 0; i < _chipsListCharacteristics!.length; i++) {
       Widget item = Container(
-        height: 26,
-        child: FilterChip(
-          checkmarkColor: Colors.white,
-          selectedColor: Color(0xff492e8d),
-          visualDensity: VisualDensity.compact,
-          label: Text(
-            _chipsListCharacteristics![i].label!,
-            textAlign: TextAlign.center,
-          ),
-          labelStyle: TextStyle(color: Colors.white, fontSize: 11),
-          backgroundColor: _chipsListCharacteristics![i].color,
-          selected: _chipsListCharacteristics![i].isSelected!,
-          onSelected: (value) {
-            setState(() {
-              _chipsListCharacteristics![i].isSelected = value;
-            });
-          },
-        ),
-      );
+          height: 26,
+          child: Obx(() {
+            return FilterChip(
+              checkmarkColor: Colors.white,
+              selectedColor: Color(0xff492e8d),
+              visualDensity: VisualDensity.compact,
+              label: Text(
+                _chipsListCharacteristics![i].label!,
+                textAlign: TextAlign.center,
+              ),
+              labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize:
+                      AdaptiveTextSize().getadaptiveTextSize(context, 12)),
+              backgroundColor: _chipsListCharacteristics![i].color,
+              selected: dialogController.getCharacteristics(i),
+              onSelected: (value) {
+                dialogController.setCharacteristics(i);
+              },
+            );
+          }));
       chips.add(item);
     }
     return chips;
   }
 
-  List<Widget> techChipsPeople() {
+  List<Widget> techChipsPeople(ControllerDialog dialogController) {
     List<Widget> chips = [];
     for (int i = 0; i < _chipsListPeople!.length; i++) {
       Widget item = Container(
-        height: 26,
-        child: FilterChip(
-          checkmarkColor: Colors.white,
-          selectedColor: Color(0xff492e8d),
-          visualDensity: VisualDensity.compact,
-          label: Text(
-            _chipsListPeople![i].label!,
-            textAlign: TextAlign.center,
-          ),
-          labelStyle: TextStyle(color: Colors.white, fontSize: 11),
-          backgroundColor: _chipsListPeople![i].color,
-          selected: _chipsListPeople![i].isSelected!,
-          onSelected: (value) {
-            setState(() {
-              _chipsListPeople![i].isSelected = value;
-            });
-          },
-        ),
-      );
+          height: 26,
+          child: Obx(() {
+            return FilterChip(
+              checkmarkColor: Colors.white,
+              selectedColor: Color(0xff492e8d),
+              visualDensity: VisualDensity.compact,
+              label: Text(
+                _chipsListPeople![i].label!,
+                textAlign: TextAlign.center,
+              ),
+              labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize:
+                      AdaptiveTextSize().getadaptiveTextSize(context, 12)),
+              backgroundColor: _chipsListPeople![i].color,
+              selected: dialogController.getPeople(i),
+              onSelected: (value) {
+                dialogController.setPeople(i);
+              },
+            );
+          }));
       chips.add(item);
     }
     return chips;

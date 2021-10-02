@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invitee_application/app/ui/android/home/homePage.dart';
+import 'package:invitee_application/app/data/repositories/repository_room_card.dart';
+
+import 'adaptive_text_size.dart';
 
 class RoomCards extends StatelessWidget {
   final RoomCard data;
@@ -60,6 +62,8 @@ class RoomCards extends StatelessWidget {
                     child: Text(
                       data.title!,
                       style: TextStyle(
+                          fontSize: AdaptiveTextSize()
+                              .getadaptiveTextSize(context, 13),
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline),
                     ),
@@ -80,7 +84,8 @@ class RoomCards extends StatelessWidget {
                       data.busula!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 11,
+                        fontSize:
+                            AdaptiveTextSize().getadaptiveTextSize(context, 10),
                         color: Colors.white,
                       ),
                     ),
@@ -96,34 +101,47 @@ class RoomCards extends StatelessWidget {
                   child: Text(
                     data.local!,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 12),
                     ),
                   ),
                 )
               ],
             ),
+            SizedBox(),
             Expanded(
-                child: Container(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                reverse: true,
-                itemCount: data.details!.length,
-                itemBuilder: (_, index) {
-                  return RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: data.details![index],
-                        style: TextStyle(color: Colors.purple, fontSize: 11)),
-                    TextSpan(
-                        text: ' / ',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold)),
-                  ]));
-                },
+              child: Container(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  itemCount: data.details!.length,
+                  itemBuilder: (_, index) {
+                    return Container(
+                      alignment: Alignment.centerRight,
+                      child: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                            text: data.details![index],
+                            style: TextStyle(
+                                color: Colors.purple,
+                                fontSize: AdaptiveTextSize()
+                                    .getadaptiveTextSize(context, 12)),
+                          ),
+                          TextSpan(
+                            text: ' / ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: AdaptiveTextSize()
+                                    .getadaptiveTextSize(context, 12),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                      ),
+                    );
+                  },
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),

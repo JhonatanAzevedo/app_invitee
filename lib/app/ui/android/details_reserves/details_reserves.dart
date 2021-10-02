@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invitee_application/app/ui/android/home/widgets/types_checks_widgt.dart';
 
 class DetailsReserves extends StatefulWidget {
   @override
@@ -8,8 +9,6 @@ class DetailsReserves extends StatefulWidget {
 }
 
 class _DetailsReservesState extends State<DetailsReserves> {
-  bool checkvelue = false;
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 100;
@@ -92,7 +91,8 @@ class _DetailsReservesState extends State<DetailsReserves> {
                                   : Text('Reserva do tipo estação',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.start)),
+                                      textAlign: TextAlign.start),
+                                      ),
                           SizedBox(height: height * 0.2),
                           Row(
                             children: [
@@ -134,22 +134,27 @@ class _DetailsReservesState extends State<DetailsReserves> {
                             child: Text('$money',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
+
                           SizedBox(height: height * 1),
+
                           Row(
                             children: [
-                              checkIn(
-                                  'Check-in',
-                                  'Deseja confirma o Check-in?',
-                                  'Check-in realizado com sucesso',
-                                  height,
-                                  width),
+                              //Botao de Check-in
+                              TypeChecks(
+                                  name: 'Check-in',
+                                  title: 'Deseja confirma o Check-in?',
+                                  snackbarTitle:
+                                      'Check-in realizado com sucesso'),
+
                               SizedBox(width: width * 4),
-                              checkIn(
-                                  'Check-out',
-                                  'Deseja confirma o Check-out?',
-                                  'Check-out realizado com sucesso',
-                                  height,
-                                  width),
+                              
+                              //Botao de Check-out
+                              TypeChecks(
+                                name: 'Check-out',
+                                title: 'Deseja confirma o Check-out?',
+                                snackbarTitle:
+                                    'Check-out realizado com sucesso',
+                              ),
                             ],
                           ),
                         ],
@@ -168,70 +173,6 @@ class _DetailsReservesState extends State<DetailsReserves> {
         onPressed: () {
           Get.offNamed('/');
         },
-      ),
-    );
-  }
-
-  Widget checkIn(String name, String title, String snackbarTitle, double height,
-      double width) {
-    return InkWell(
-      onTap: () => showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text(title),
-          actions: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      child: ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text(
-                            'Não',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                    Container(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.offNamed('/');
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(snackbarTitle)));
-                        },
-                        child: Text(
-                          'Sim',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      child: Container(
-        height: height * 3,
-        width: width * 20,
-        decoration: BoxDecoration(
-            color: Color(0xff492e8d),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-              color: Colors.white,
-            ),
-          ),
-        ),
       ),
     );
   }

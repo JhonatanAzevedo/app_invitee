@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invitee_application/app/ui/android/home/widgets/adaptive_text_size.dart';
 
 class RoomDetails extends StatelessWidget {
   const RoomDetails({Key? key}) : super(key: key);
@@ -24,8 +25,8 @@ class RoomDetails extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Color(0xff492e8d),
         title: Text(
-          'Invitee',  style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold),
+          'Invitee',
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
           IconButton(
@@ -113,182 +114,178 @@ class RoomDetails extends StatelessWidget {
             ),
 
             SizedBox(height: height * 3),
-            Padding(
-              padding: EdgeInsets.only(left: width * 8),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Selecione o tipo de reserva:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                'Selecione o tipo de reserva:',
+                style: TextStyle(
+                  fontSize:
+                      AdaptiveTextSize().getadaptiveTextSize(context, 20),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
 
             SizedBox(height: height * 1),
 
-            Padding(
-              padding: EdgeInsets.only(left: width * 3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        child: Text('Reunião',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff9e7be2))),
-                      ),
-
-                      SizedBox(height: height * 2),
-                      
-                      InkWell(
-                        onTap: () => showDialog(
-                            context: context,
-                            builder: (ctx) => AlertDialog(
-                                  title: Text(
-                                    'Deseja reservar está sala para reunião?',
-                                    style: TextStyle(
-                                      fontSize: width * 5,
-                                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      child: Text('Reunião',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff9e7be2))),
+                    ),
+                    SizedBox(height: height * 2),
+                    InkWell(
+                      onTap: () => showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                                title: Text(
+                                  'Deseja reservar está sala para reunião?',
+                                  style: TextStyle(
+                                    fontSize: width * 5,
                                   ),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Container(
-                                          child: ElevatedButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: Text('Não'),
-                                          ),
+                                ),
+                                actions: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Container(
+                                        child: ElevatedButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
+                                          child: Text('Não'),
                                         ),
-                                        Container(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Get.offNamed('/detail_reserves',
-                                                  arguments: {
-                                                    'image': image,
-                                                    'title': title,
-                                                    'local': local,
-                                                    'time': time,
-                                                    'money': money,
-                                                    'day': day,
-                                                    'reunion': true,
-                                                  });
-                                            },
-                                            child: Text('Sim'),
-                                          ),
+                                      ),
+                                      Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.offNamed('/detail_reserves',
+                                                arguments: {
+                                                  'image': image,
+                                                  'title': title,
+                                                  'local': local,
+                                                  'time': time,
+                                                  'money': money,
+                                                  'day': day,
+                                                  'reunion': true,
+                                                });
+                                          },
+                                          child: Text('Sim'),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          height: height * 13,
-                          width: width * 23,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius:
-                                    30.0, // tem o efeito de suavizar a sombra
-                                spreadRadius:
-                                    0.0, // tem o efeito de estender a sombra
-                              )
-                            ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            image: DecorationImage(
-                                image: AssetImage('assets/images/reuniao.png'),
-                                fit: BoxFit.fill),
-                          ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        height: height * 13,
+                        width: width * 23,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius:
+                                  30.0, // tem o efeito de suavizar a sombra
+                              spreadRadius:
+                                  0.0, // tem o efeito de estender a sombra
+                            )
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/reuniao.png'),
+                              fit: BoxFit.fill),
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(width: width * 3),
-                  Column(
-                    children: [
-                      Container(
-                        child: Text('Estação de Trabalho',
+                    ),
+                  ],
+                ),
+                SizedBox(width: width * 3),
+                Column(
+                  children: [
+                    Container(
+                      child: Text('Estação de Trabalho',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff9e7be2))),
+                    ),
+                    SizedBox(height: height * 2),
+                    InkWell(
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text(
+                            'Deseja reservar está sala para estação de trabalho?',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff9e7be2))),
-                      ),
-                      SizedBox(height: height * 2),
-                      InkWell(
-                        onTap: () => showDialog(
-                            context: context,
-                            builder: (ctx) => AlertDialog(
-                                  title: Text(
-                                    'Deseja reservar está sala para estação de trabalho?',
-                                    style: TextStyle(
-                                      fontSize: width * 5,
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Container(
-                                          child: ElevatedButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: Text('Não'),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Get.offNamed('/detail_reserves',
-                                                  arguments: {
-                                                    'image': image,
-                                                    'title': title,
-                                                    'local': local,
-                                                    'time': time,
-                                                    'money': money,
-                                                    'day': day,
-                                                    'reunion': false,
-                                                  });
-                                            },
-                                            child: Text('Sim'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),),
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          height: height * 13,
-                          width: width * 23,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius:
-                                    30.0, // tem o efeito de suavizar a sombra
-                                spreadRadius:
-                                    0.0, // tem o efeito de estender a sombra
-                              )
-                            ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/estacao_trabalho.png'),
-                                fit: BoxFit.fill),
+                              fontSize: width * 5,
+                            ),
                           ),
+                          actions: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  child: ElevatedButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text('Não'),
+                                  ),
+                                ),
+                                Container(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Get.offNamed('/detail_reserves',
+                                          arguments: {
+                                            'image': image,
+                                            'title': title,
+                                            'local': local,
+                                            'time': time,
+                                            'money': money,
+                                            'day': day,
+                                            'reunion': false,
+                                          });
+                                    },
+                                    child: Text('Sim'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        height: height * 13,
+                        width: width * 23,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius:
+                                  30.0, // tem o efeito de suavizar a sombra
+                              spreadRadius:
+                                  0.0, // tem o efeito de estender a sombra
+                            )
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/estacao_trabalho.png'),
+                              fit: BoxFit.fill),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -302,10 +299,4 @@ class RoomDetails extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }
-
-
