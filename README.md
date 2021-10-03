@@ -1,4 +1,5 @@
 # invitee_application
+# O Apk de instalação está dentro da pasta Apk_Invitee
 
 A new Flutter project.
 
