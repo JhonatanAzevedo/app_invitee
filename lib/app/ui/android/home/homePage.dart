@@ -1,18 +1,19 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invitee_application/app/data/provider/api.dart';
+import 'package:invitee_application/app/controller/home_controller.dart';
 import 'package:invitee_application/app/ui/android/home/widgets/room_card_widget.dart';
 import 'widgets/adaptive_text_size.dart';
 import 'widgets/dialog_filter_widget.dart';
 
 class HomePage extends StatelessWidget {
+  final listRoomController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 100;
     final width = MediaQuery.of(context).size.width / 100;
-
-    changeData();
 
     return Scaffold(
       drawer: Drawer(),
@@ -82,17 +83,20 @@ class HomePage extends StatelessWidget {
           SizedBox(height: height * 2),
 
           Expanded(
-            flex: 4,
-            child: ListView.separated(
-              itemBuilder: (_, i) {
-                return RoomCards(data: data![i]);
-              },
-              separatorBuilder: (_, __) {
-                return SizedBox(height: height * 3);
-              },
-              itemCount: data!.length,
-              shrinkWrap: true,
-            ),
+            flex: 1,
+            child: GetX<HomeController>(initState: (state) {
+              listRoomController.getLisRoom();
+            }, builder: (listRoomController) {
+              return ListView.builder(
+                itemCount: listRoomController.listRoom.length,
+                itemBuilder: (context, int index) {
+                  return Padding(
+                    padding:  EdgeInsets.only(top: height * 3),
+                    child: RoomCards(data: listRoomController.listRoom[index]),
+                  );
+                },
+              );
+            }),
           ),
         ],
       ),

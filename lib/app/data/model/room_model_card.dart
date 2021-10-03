@@ -1,4 +1,4 @@
-class RoomCard {
+class RoomCardModel {
   final String? image;
   final String? title;
   final String? local;
@@ -9,7 +9,7 @@ class RoomCard {
   final String? day;
   final List<String>? details;
 
-  RoomCard({
+  RoomCardModel({
     this.image,
     this.title,
     this.local,

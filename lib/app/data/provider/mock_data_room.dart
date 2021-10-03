@@ -1,9 +1,12 @@
-import 'package:invitee_application/app/data/repositories/repository_room_card.dart';
 
-List<RoomCard>? data;
-changeData() {
-  data = [
-    RoomCard(
+import 'package:invitee_application/app/data/model/room_model_card.dart';
+
+class MockProvider {
+
+  Future<List<RoomCardModel>> fetchDataRoom() async {
+
+    return [
+    RoomCardModel(
         image: 'salaA1',
         title: 'Sala de Reunião A1',
         local: 'Av.Paulista 500 - São Paulo',
@@ -17,7 +20,7 @@ changeData() {
           'Projetor',
           '8-12 Pessoas',
         ]),
-    RoomCard(
+    RoomCardModel(
         image: 'salaA2',
         title: 'Sala de Reunião A2',
         local: 'Av.Paulista 500 - São Paulo',
@@ -31,7 +34,7 @@ changeData() {
           'Projetor',
           '8-12 Pessoas',
         ]),
-    RoomCard(
+    RoomCardModel(
         image: 'salaA3',
         title: 'Sala de Reunião A3',
         local: 'Av.Paulista 500 - São Paulo',
@@ -44,6 +47,12 @@ changeData() {
           'Wi-fi',
           'Projetor',
           '8-12 Pessoas',
-        ]),
-  ];
+        ])];
+  
+   
+  }
+  
 }
+
+
+

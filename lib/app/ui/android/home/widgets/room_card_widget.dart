@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invitee_application/app/data/repositories/repository_room_card.dart';
+import 'package:invitee_application/app/data/model/room_model_card.dart';
 
 import 'adaptive_text_size.dart';
 
 class RoomCards extends StatelessWidget {
-  final RoomCard data;
+  final RoomCardModel data;
 
   const RoomCards({Key? key, required this.data}) : super(key: key);
 
